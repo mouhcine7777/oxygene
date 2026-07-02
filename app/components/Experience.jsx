@@ -1,6 +1,6 @@
 "use client";
 
-const PANELS = [
+const PANELS_FR = [
   {
     num: "01",
     title: "Hébergement",
@@ -34,8 +34,43 @@ const PANELS = [
     cta: "Télécharger",
   },
 ];
+const PANELS_EN = [
+  {
+    num: "01",
+    title: "Accommodation",
+    desc: "Chalets and suites nestled in nature, blending modern comfort with authentic Moroccan character.",
+    img: "/hebergement.jpg",
+    action: { type: "link", href: "https://oxygen-village.hotelrunner.com/bv3" },
+    cta: "Book",
+  },
+  {
+    num: "02",
+    title: "Swimming Pool",
+    desc: "An outdoor pool at the heart of the gardens, facing the peaks of the Atlas mountains.",
+    img: "/piscine.jpg",
+    action: { type: "link", href: "https://oxygen-village.hotelrunner.com/bv3" },
+    cta: "Book",
+  },
+  {
+    num: "03",
+    title: "Outdoor Activities",
+    desc: "Discover an authentic Morocco through our exclusive experiences: horse trekking, exploration of mining towns, and breathtaking panoramas.",
+    img: "/activites.jpg",
+    action: { type: "download", href: "/corporate/activitieseng.pdf", filename: "outdoor-activities.pdf" },
+    cta: "Download",
+  },
+  {
+    num: "04",
+    title: "Meeting Rooms",
+    desc: "Transform your meetings into inspiring experiences at the heart of the Atlas. Our flexible, eco-friendly spaces adapt to all your needs.",
+    img: "/salles.jpg",
+    action: { type: "download", href: "/corporate/corporateeng.pdf", filename: "meeting-rooms.pdf" },
+    cta: "Download",
+  },
+];
 
-export default function ServicesSection() {
+export default function ServicesSection({ lang = "fr" }) {
+  const PANELS = lang === "en" ? PANELS_EN : PANELS_FR;
   const handleAction = (action) => {
     if (action.type === "link") {
       window.open(action.href, "_blank", "noopener,noreferrer");

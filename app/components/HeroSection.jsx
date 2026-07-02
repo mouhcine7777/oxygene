@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // Add to globals.css:
 // @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600&family=Inter:wght@300;400&display=swap');
@@ -8,9 +9,17 @@ import { useEffect, useState } from "react";
 const IMAGES = ["/hero.jpg", "/hero.webp"];
 const SLIDE_DURATION = 7000;
 
-export default function HeroSection() {
+export default function HeroSection({ lang = "fr" }) {
   const [scrollY, setScrollY] = useState(0);
   const [current, setCurrent] = useState(0);
+  const t = {
+    location: lang === "en" ? "Atlas, Morocco" : "Atlas, Maroc",
+    line2:    lang === "en" ? "Breathe the" : "Respirez la",
+    line3:    lang === "en" ? "difference" : "différence",
+    book:     lang === "en" ? "Book" : "Réserver",
+    langBtn:  lang === "en" ? "FR" : "EN",
+    langHref: lang === "en" ? "/" : "/eng",
+  };
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -142,20 +151,42 @@ export default function HeroSection() {
             alt="Oxygen Village"
             className="h-20 w-auto object-contain"
           />
+          <Link
+            href={t.langHref}
+            style={{
+              position: "absolute",
+              right: "24px",
+              top: "28px",
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "10px",
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "#000",
+              background: "#fff",
+              border: "1px solid #fff",
+              padding: "7px 14px",
+              textDecoration: "none",
+              transition: "background 0.25s ease, color 0.25s ease",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#fff"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#000"; }}
+          >
+            {t.langBtn}
+          </Link>
         </header>
 
         {/* ── Left-aligned hero text ── */}
         <div className="relative z-20 h-full flex flex-col justify-center px-10 md:px-16 lg:px-20 max-w-3xl">
 
           <span className="a2 font-inter text-white/45 text-[10px] tracking-[0.45em] uppercase font-light mb-6">
-            Atlas, Maroc
+            {t.location}
           </span>
 
           <h1 className="font-el-messiri text-white font-medium leading-[1.05] tracking-tight mb-8"
             style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)" }}>
             <span className="a3 block">Oxygen Village</span>
-            <span className="a4 block">Respirez la</span>
-            <span className="a5 block">différence</span>
+            <span className="a4 block">{t.line2}</span>
+            <span className="a5 block">{t.line3}</span>
           </h1>
 
           <a
@@ -164,7 +195,7 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className="a5 book-btn self-start"
           >
-            Réserver
+            {t.book}
           </a>
         </div>
 
